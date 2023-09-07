@@ -1,0 +1,173 @@
+//TO STUDY AN ARRAY ADT AND TO IMPLEMENT VARIOUS OPERATION ON MATRIX(TWO DIMENSIONAL ARRAY) [INCLUDE DISPLAY ARRAY IN ROW MAJOR AND COLUMN FORM , FIND TRANSPOSE , MATRIX ADDITION AND MULTIPLICATION]
+
+#include<stdio.h>
+#include<stdlib.h>
+void transpose(int *[],int,int);
+void add(int *[],int,int);
+void multiply(int *[],int,int);
+void display(int *[],int,int);
+void rcm(int *[],int,int);
+int main()
+{
+   int r,c,i,j,temp;
+   printf("ENTER THE NUMBER OF ROWS :- ");
+   scanf("%d",&r);
+   printf("ENTER NUMBER OF COLUMNS :- ");
+   scanf("%d",&c);
+   int *arr[r];
+   for(i=0;i<r;i++)
+   {
+    arr[i]=(int*)malloc(c*sizeof(int));
+   }
+   printf("ENTER THE ELEMENTS :-");
+   for(i=0;i<r;i++)
+   {
+    for(j=0;j<c;j++)
+    {
+        scanf("%d",&arr[i][j]);
+    }
+   }
+   printf("THE ENTERED MATRIX IS :-\n");
+   for(i=0;i<r;i++)
+   {
+    for(j=0;j<c;j++)
+    {
+        printf("%d ",arr[i][j]);
+    }
+     printf("\n");
+   }
+   printf("ENTER 0 TO TRANSPOSE , 1 TO ADD , 2 TO MULTIPLY , 3 FOR ROW MAJOR AND COLUMN MAJOR, ANYTHING ELSE TO EXIT :- ");
+   scanf("%d",&temp);
+   if(temp==0)
+   {
+    transpose(arr,r,c);
+   }
+   else if(temp==1)
+   {
+    add(arr,r,c);
+   }
+   else if(temp==2)
+   {
+    multiply(arr,r,c);
+   }
+   else if(temp==3)
+   {
+    rcm(arr,r,c);
+   }
+   else{
+    printf("EXITED");
+    exit(1);
+   }
+    return 0;
+}
+
+void display(int *arr[],int r,int c)
+{
+    int i,j;
+    printf("NEW MATRIX IS :-\n");
+  for(i=0;i<r;i++)
+   {
+    for(j=0;j<c;j++)
+    {
+        printf("%d ",arr[j][i]);
+    }
+     printf("\n");
+   } 
+}
+
+void add(int *arr[],int r,int c)
+{
+    int i,j,r2,c2;
+    printf("ENTER THE NUMBER OF ROWS OF NEW MATRIX :- ");
+    scanf("%d",&r2);
+    printf("ENTER NUMBER OF COLUMNS OF NEW MATRIX :- ");
+    scanf("%d",&c2);
+    int *arr2[r2];
+    printf("ENTER THE ELEMENTS OF SECOND MATRIX :-"); 
+    for(i=0;i<r2;i++)
+    {
+      arr2[i]=(int*)malloc(c2*sizeof(int));
+    }
+    for(i=0;i<r2;i++)
+    {
+        for(j=0;j<c2;j++)
+        {
+            scanf("%d",&arr2[i][j]);
+            arr[i][j]=arr[i][j]+arr2[i][j];
+        }
+    }
+    display(arr,r,c);
+}
+
+void multiply(int *arr[],int r,int c)
+{
+    int i,j,k,l,r2,c2;
+    printf("ENTER THE NUMBER OF ROWS OF NEW MATRIX :- ");
+    scanf("%d",&r2);
+    printf("ENTER NUMBER OF COLUMNS OF NEW MATRIX :- ");
+    scanf("%d",&c2);
+    int *arr2[r2];
+    printf("ENTER THE ELEMENTS OF SECOND MATRIX :-"); 
+    for(i=0;i<r2;i++)
+    {
+      arr2[i]=(int*)malloc(c2*sizeof(int));
+    }
+    for(i=0;i<r2;i++)
+    {
+        for(j=0;j<c2;j++)
+        {
+            scanf("%d",&arr2[i][j]);
+        }
+    }
+    if(c==r2)
+    {
+        int arrf[r][c2];
+      for(i=0;i<r;i++)
+      {
+        for(j=0;j<c;j++)
+        {
+           for(k=0;k<c2;k++)
+           {
+              for(l=0;l<r2;l++)
+              {
+                arrf[]
+              }
+           }
+        }
+      }
+    }
+    else{
+        printf("THESE TWO ARRAY CANT BE MULTIPLIED AS NNUMBER OF ROWS AND COLUMN ARE NOT EQUAL");
+    }
+}
+
+void transpose(int *arr[],int r,int c)
+{
+    int i,j;
+    display(arr,r,c);
+}
+
+void rcm(int *arr[],int r,int c)
+{
+    int i,j;
+    printf("ROW MAJOR IS :-\n");
+    for(i=0;i<r;i++)
+    {
+        printf("[");
+        for(j=0;j<c;j++)
+        {
+            printf("%d ",arr[i][j]);
+        }
+        printf("]\n");
+    }
+    printf("\nColumn major is :-\n");
+    for(i=0;i<r;i++)
+    {
+      printf("[");
+      for(j=0;j<c;j++)
+      {
+        printf("%d ",arr[j][i]);
+      }
+      printf("]\n");
+    }
+}
