@@ -1,0 +1,64 @@
+// AIM1:- IMPLEMENTATION OF STACK ADT AND ITS ALLOWABLE OPERATION USING DYNAMIC MEMORY ALLOCATION
+// 1) PUSH(),POP(),PEEK()
+// PUSH --> MALLOC(),CALLOC()
+// POP()-->REALLOC()
+
+#include<stdio.h>
+#include<stdlib.h>
+
+struct str
+{
+    int *ptr;
+    int size;
+}o;
+void display()
+{
+    printf("THE STACK IS :- ");
+    for(int i=0;i<o.size;i++)
+    {
+        printf("%d ",o.ptr[i]);
+    }
+}
+
+void initialise()
+{
+    int temp=0;
+    printf("ENTER THE SIZE OF THE ARRAY :- ");
+    scanf("%d",&(o.size));
+    o.ptr=(int*)malloc((o.size)*sizeof(int));
+    printf("ENTER ELEMENT OF ARRAY :- ");
+    for(int i=0;i<o.size;i++)
+    {
+        scanf("%d",&temp);
+        o.ptr[i]=temp;
+    }
+    display();
+}
+void peep()
+{
+    printf("TOP ELEMENT IS :- %d\n",*(o.ptr));
+}
+void pop()
+{
+    o.ptr=(int*)realloc(o.ptr,(o.size-1)*sizeof(int));
+    o.size--;
+    display();
+}
+void push()
+{
+   o.ptr=(int*)realloc(o.ptr,(o.size+1)*sizeof(int));
+   o.size++;
+   printf("ENTER THE NUMBER TO PUSH :- ");
+   int temp;
+   scanf("%d",&temp);
+   o.ptr[o.size-1]=temp;
+   display();
+}
+int main()
+{
+    initialise();
+    peep();
+    pop();
+    push();
+    return 0;
+}
