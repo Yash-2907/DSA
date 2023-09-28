@@ -1,0 +1,58 @@
+#include<stdio.h>
+void display(int f, int r, int arr[])
+{
+  printf("CURRENT QUEUE IS :- ");
+  for(int i=f;i<r;i++)
+  {
+    printf("%d ",arr[i]);
+  }
+  printf("\n");
+}
+int main()
+{
+  int front=0,rear=0,size,temp;
+  printf("ENTER THE SIZE OF THE QUEUE :- ");
+  scanf("%d",&size);
+  int arr[size];
+  here:
+  printf("enter 0 for enqueue , 1 for dequeue , 2 for peep , anything else to exit :- ");
+  scanf("%d",&temp);
+  if(temp==0)
+  {
+    if(rear==size)
+    {
+      printf("STACK IS ALREADY FULL !");
+    }
+    else{
+    int num;
+    printf("ENTER THE NUMBER YOU WANT TO ADD IN STACK :- ");
+    scanf("%d",&num);
+    arr[rear]=num;
+    rear++;
+    display(front,rear,arr);
+    goto here;
+    }
+  }
+  else if(temp==1)
+  {
+    if(front>=rear)
+    {
+      printf("STACK IS ALREADY EMPTY !!!");
+    }
+    else{
+    front++;
+    display(front,rear,arr);
+    goto here;
+    }
+  }
+  else if(temp==2)
+  {
+    printf("FRONT MOST ELEMENT IS :- %d\n",arr[front]);
+    goto here;
+  }
+  else
+  {
+    printf("EXITED!!!");
+  }
+  return 0;
+}
