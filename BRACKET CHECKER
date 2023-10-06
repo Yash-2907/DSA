@@ -1,0 +1,68 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+struct queue
+{
+  int size;
+  char *ptr;
+  int top;
+}o;
+void push(char s)
+{
+  o.ptr[o.top]=s;
+  o.top++;
+}
+void pop()
+{
+  int i;
+  for(i=o.top-1;i>=0;i--)
+  {
+    if(o.ptr[i]=='(')
+    {
+      o.top=i;
+      break;
+    }
+  }
+}
+int main()
+{
+  int len,i;
+  char str[100];
+  printf("enter the statement :- ");
+  scanf("%s",str);
+  printf("ENTERED STRING IS :- %s",str);
+  len=strlen(str);
+  printf("\nLENGTH IS :- %d",len);
+  o.size=len;
+  o.ptr=(char*)malloc(len*sizeof(char));
+  o.top=0;
+  for(i=0;i<len;i++)
+  {
+    if(str[i]=='(')
+    {
+      push('(');
+    }
+    else if(str[i]==')')
+    {
+      if(o.top==0)
+      {
+        printf("ERORRRR !!!!! ORDER OF BRACKETS");
+        exit(0);
+      }
+      else{
+      pop();
+      }
+    }
+    else{
+      continue;
+    }
+  }
+  if(o.top==0)
+  {
+    printf("\nENTERED STATAMENT HAS CORRECT NUMBER OF BRACKETS");
+  }
+  else{
+    printf("\nERORRRR !!!!! WRONG NUMBER OF BRACKETS");
+  }
+  return 0;
+}
