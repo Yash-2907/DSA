@@ -1,0 +1,135 @@
+//INFINIX TO POSTFIX
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+struct stack
+{
+  char *ptr;
+  char *ans;
+  int size;
+  int top;
+  int top_a;
+}o;
+void push(char c,int n)
+{
+  if(n==1)
+  {
+  o.ptr[o.top]=c;
+  o.top++;  
+  }
+  else if(n==2)
+  {
+  o.ans[o.top_a]=c;
+  o.top_a++;
+  }
+  else{}
+}
+void pop(int i)
+{
+  if(i==1)
+  {
+    o.top--;
+  }
+  else if(i==2){
+
+  }
+  else{}
+}
+int priority(char c)
+{
+  switch (c)
+  {
+   case '*':
+   return 6;
+   break;
+
+   case '/':
+   return 5;
+   break;
+
+   case '%':
+   return 4;
+   break;
+
+   case '+':
+   return 3;
+   break;
+
+   case '-':
+   return 2;
+   break;
+
+   case '^':
+   return 1;
+   break;
+
+   default:
+   printf("INVALID!!!!!!!!!!!!!!!");
+  }
+}
+int main()
+{
+  char str[100];
+  int i;
+  printf("ENTER THE STRING WITHOUT SPACE:- ");
+  scanf("%s",str);
+  o.size=strlen(str);
+  o.ptr=(char*)malloc(o.size*sizeof(char));
+  o.ans=(char*)malloc(o.size*sizeof(char));
+  o.top=0;
+  o.top_a=0;
+  push('(',1);
+  for(i=0;i<o.size;i++)
+  {
+    if((str[i]>='a'&&str[i]<='z')||(str[i]>='A'&&str[i]<='Z')||(str[i]>='0'&&str[i]<='9'))
+    {
+      push(str[i],2);
+    }
+    else if(str[i]=='(')
+    {
+      push('(',1);   
+    }
+    else if((str[i]=='+')||(str[i]=='-')||(str[i]=='/')||(str[i]=='*')||(str[i]=='%')||(str[i]=='^'))
+    {
+      if((o.ptr[o.top-1]=='+')||(o.ptr[o.top-1]=='-')||(o.ptr[o.top-1]=='/')||(o.ptr[o.top-1]=='*')||(o.ptr[o.top-1]=='%')||(o.ptr[o.top-1]=='^'))
+      {
+        if(priority(str[i])>priority(o.ptr[o.top-1]))
+        {
+            push(str[i],1);
+        }
+        else{
+          printf("\nhere :-%c\n",o.ptr[o.top-1]);
+            push(o.ptr[o.top-1],2);
+            pop(1);
+            push(str[i],1);
+        }
+      }
+      else{
+        push(str[i],1);
+      }
+    }
+    else if(str[i]==')')
+    {
+       while(o.ptr[o.top-1]!='(')
+       {
+        push(o.ptr[o.top-1],2);
+        pop(1);
+       }
+       pop(1);
+    }
+    else{
+      printf("INVALID CHARACTER !!!!!!!!!!!!!");
+    }
+  }
+  for(i=o.top-1;i>0;i--)
+  {
+    push(o.ptr[i],2);
+    pop(1);
+  }
+  printf("\nANSWER STRING IS :- ");
+  for(i=0;i<o.top_a;i++)
+  {
+    printf("%c",o.ans[i]);
+  }
+  return 0;
+}
