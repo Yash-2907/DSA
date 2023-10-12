@@ -1,0 +1,87 @@
+//PRACTICAL 2
+#include<stdio.h>
+#include<stdlib.h>
+struct queue
+{
+  int *ptr;
+  int front;
+  int end;
+  int size;
+}o;
+void display()
+{
+  printf("\nCurrrent queue is :- ");
+  for(int i=o.front;i<o.end;i++)
+  {
+    printf("%d ",o.ptr[i]);
+  }
+  printf("\n");
+}
+void enqueue()
+{
+  if(o.ptr[o.end]==(o.ptr[o.size]))
+  {
+    printf("QUEUE IS ALREADY FULL");
+  }
+  else{
+    int tmp;
+    printf("ENTER THE VALUE TO ENQUEUE :- ");
+    scanf("%d",&tmp);
+    o.ptr[o.end]=tmp;
+    o.end++;
+  }
+  display();
+}
+void peek()
+{
+  printf("TOP ELEMENT IS :- %d",o.ptr[o.front]);
+  display();
+}
+void dequeue()
+{
+  if(o.front>=o.end)
+  {
+    printf("QUEUE IS ALREADY EMPTY\n");
+  }
+  else{
+  printf("DEQUEUED ELEMENT :- %d",o.ptr[o.front]);
+  o.front++;
+  display();
+  }
+}
+int main()
+{
+  int i;
+  printf("ENTER THE SIZE OF QUEUE :- ");
+  scanf("%d",&o.size);
+  o.ptr=(int*)malloc(o.size*sizeof(int));
+  o.front=0;
+  o.end=0;
+  printf("ENTER THE FIRST ELEMENT TO ADD :- ");
+  scanf("%d",&o.ptr[o.end]);
+  o.end++;
+  here:
+  printf("\nENTER 1 TO ENQUEUE , 2 TO DEQUEUE , 3 TO PEEK , ANYTHING ELSE TO EXIT :-  ");
+  int temp;
+  scanf("%d",&temp);
+  switch(temp)
+  {
+    case 1:
+    enqueue();
+    break;
+    case 2:
+    dequeue();
+    break;
+    case 3:
+    peek();
+    break;
+    default:
+    {
+    printf("EXITED PROGRAM !!!!!!!!!!!!!!!!!!!!!!!!!!");
+    exit(0);
+    break;
+    }
+  }
+  goto here;
+  return 0;
+}
