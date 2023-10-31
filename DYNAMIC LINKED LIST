@@ -1,0 +1,59 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+struct node{
+   int data;
+   struct node *next;
+};
+void ini(struct node *ptr)
+{
+  int temp;
+  printf("ENTER THE NUMBER TO ADD TO FIRST NODE :- ");
+  scanf("%d",&temp);
+  ptr->data=temp;
+  ptr->next=NULL;
+}
+struct node* anode(struct node *ptr)
+{
+  int temp;
+  printf("ENTER THE NUMBER TO ADD TO NODE :- ");
+  scanf("%d",&temp);
+  ptr->next=(struct node*)malloc(sizeof(struct node*));
+  ptr->next->data=temp;
+  ptr->next->next=NULL;
+  return ptr->next;
+}
+void itr(struct node *ptr)
+{
+  printf("CURRENT LINKED LIST IS :- ");
+  struct node *current=ptr;
+  while(current->next!=NULL)
+  {
+    printf("%d ",current->data);
+    current=current->next;
+  }
+  printf("%d\n",current->data);
+}
+int main()
+{
+  struct node *start=(struct node*)malloc(sizeof(struct node*));
+  struct node *cptr=start;
+  ini(start);
+  int temp;
+  here:
+  printf("ENTER 1 TO ADD NEW NODE , 2 TO ITERATE , ANYTHING ELSE TO EXIT :- ");
+  scanf("%d",&temp);
+  if(temp==1)
+  {
+    cptr=anode(cptr);
+  }
+  else if(temp==2)
+  {
+    itr(start);
+  }
+  else{
+    exit(0);
+  }
+  goto here;
+  return 0;
+}
