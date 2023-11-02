@@ -1,0 +1,115 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+  char song[100];
+  struct node *next;
+  struct node *prev;
+};
+void ini(struct node *ptr)
+{
+  printf("ENTER NAME OF FIRST SONG :- ");
+  scanf("%s",ptr->song);
+  ptr->next=NULL;
+  ptr->prev=NULL;
+}
+void ps(struct node *ptr)
+{
+  printf("CURRENTLY PLAYING :- %s\n",ptr->song);
+}
+struct node * ns(struct node *ptr)
+{
+  if(ptr->next==NULL)
+  {
+    printf("NO SONG ADDED TO PLAYLIST AHEAD!!!!!!!!\n");
+    return ptr;
+  }
+  else{
+    ps(ptr->next);
+    return ptr->next;
+  }
+}
+struct node * prevs(struct node *ptr)
+{
+  if(ptr->prev==NULL)
+  {
+    printf("NO PREVIOUS SONG ADDED :- ");
+    return ptr;
+  }
+  else{
+    ps(ptr->prev);
+    return ptr->prev;
+  }
+}
+struct node * as(struct node *ptr)
+{
+  struct node *new =(struct node *)malloc(sizeof(struct node));
+  ptr->next=new;
+  ptr->next->prev=ptr;
+  ptr->next->next=NULL;
+  printf("ENTER THE SONG TO ADD :- ");
+  scanf("%s",ptr->next->song);
+  return new;
+}
+void ds(struct node *ptr)
+{
+   char c[100];
+   printf("ENTER THE SONG NAME TO DELETE :- ");
+   scanf("%s",c);
+   struct node *temp=ptr;
+   
+   while(temp->next!=NULL)
+   {
+      
+   }
+}
+void display(struct node *ptr)
+{
+  struct node *temp=ptr;
+  printf("CURRENT PLAYLIST IS :- ");
+  while(temp->next!=NULL)
+  {
+    printf("%s ",temp->song);
+    temp=temp->next;
+  }
+  printf("%s \n",temp->song);
+}
+void main()
+{
+  struct node *start=(struct node *)malloc(sizeof(struct node));
+  struct node *current=start;
+  struct node *playing=start;
+  ini(start);
+  int temp;
+  here:
+  printf("\nENTER 1 TO PLAY SONG , 2 FOR NEXT SONG , 3 FOR PREV SONG , 4 TO ADD SONG TO QUEUE , 5 TO DELETE SONG FROM LIST ,6 TO DISPLAY PLAYLIST, ANYTHING ELSE TO EXIT :- ");
+  scanf("%d",&temp);
+  if(temp==1)
+  {
+    ps(playing);
+  }
+  else if(temp==2)
+  {
+    playing=ns(playing);
+  }
+  else if(temp==3)
+  {
+    playing=prevs(playing);
+  }
+  else if(temp==4)
+  {
+    current=as(current);
+  }
+  else if(temp==5)
+  {
+    ds(start);
+  }
+  else if(temp==6)
+  {
+    display(start);
+  }
+  else{
+    exit(0);
+  }
+  goto here;
+}
