@@ -1,0 +1,84 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+struct PrintJob
+{
+  int ID;
+}ob[100];
+struct PrintSpooler
+{
+  char *ptr;
+  char *front;
+  char *rear;
+  int size;
+  int cnt;
+}o;
+
+char* CreatePrintSpooler()
+{
+  char *temp;
+  printf("ENTER THE NUMBER OF JOBS :- ");
+  scanf("%d",&o.size);
+  temp=(char*)malloc(o.size*sizeof(char));
+  return temp;  
+}
+void isEmpty()
+{
+   if(o.front>=o.rear)
+   {
+    printf("QUEUE IS ALREADY FULL!!!!!!!!!");
+   }
+}
+void AddPrintJob()
+{
+   if(o.rear==(o.ptr+o.size))
+   {
+    printf("JOBS ALREADY FULL");
+   }
+   else{
+    printf("ENTER THE JOB'S FIRST LETTER :- ");
+    scanf(" %c",o.rear);
+    o.rear++;
+    printf("ENTER THE JOB ID :- ");
+    scanf("%d",&ob[o.cnt].ID);
+    o.cnt++;
+   }
+}
+void PrintJob()
+{
+
+}
+void DisplayPrintSpooler()
+{
+  int i;
+   printf("\nCURRENT PRINT SPOOLER ORDER IS :- ");
+   for(i=0;i<o.size;i++)
+   {
+    if(o.front+i==o.rear)
+    {
+      break;
+    }
+    printf("%c ",*(o.front+i));
+   }
+}
+
+int main()
+{
+  int i;
+  o.cnt=0;
+  o.ptr=CreatePrintSpooler();
+  o.front=o.ptr;
+  o.rear=o.ptr;
+  for(i=0;i<o.size;i++)
+  {
+    AddPrintJob();
+  }
+  printf("IDS ARE :- \n");
+  for(i=0;i<o.size;i++)
+  {
+    printf("LETTER :- %c",o.ptr[i]);
+    printf(" ID :- %d\n",ob[i].ID);
+  }
+  DisplayPrintSpooler();
+  return 0;
+}
