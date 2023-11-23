@@ -3,26 +3,23 @@
 int flag=0;
 int search(int *arr,int num,int s,int e)
 {
-    if(arr[((s+e)/2)]==num)
+    int current=(s+e)/2;
+    if(arr[current]==num)
     {
         flag=1;
-        return (s+e)/2;
+        return current;
+    }
+    else if(e-s<=1){
+        printf("NUMBER NOT FOUND !!!!");
+        return 0;
     }
     else{
-        if(s<e)
+        if(arr[current]<num)
         {
-        if(arr[((s+e)/2)]<num)
-        {
-            s=(s+e)/2;
+            search(arr,num,current,e);
         }
-        else{
-            e=(s+e)/2;
-        }
-        search(arr,num,s,e);
-        }
-        else{
-            printf("NUMBER NOT FOUND !!!!!!");
-            return 0;
+        else if(arr[current]>num){
+             search(arr,num,s,current);
         }
     }
 }
