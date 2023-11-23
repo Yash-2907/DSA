@@ -90,7 +90,7 @@ int inorder(struct tree *ptr,int num)
    }
   }
 }
-struct tree itr(struct tree *ptr)
+void itr(struct tree *ptr)
 {
     printf("CURRENT ELEMENT IS :- %d",ptr->data);
     struct tree *curr=ptr;
