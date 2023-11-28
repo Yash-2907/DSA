@@ -27,6 +27,7 @@ void anode(struct node *ptr,int num)
    // else{
    //  //   anode()
    // }
+   printf("HELLOW WORLD");
 }
 
 struct node *itr(struct node *ptr)
