@@ -1,0 +1,167 @@
+#include <iostream>
+#include <windows.h>
+#include <conio.h>
+using namespace std;
+
+bool gameover = false;
+char direction, snakehead = '^';
+int score, height = 20, width = 20, bodylen, headx, heady, fruitx, fruity;
+int tailx[200], taily[200];
+void start()
+{
+    score = 0;
+    bodylen = 0;
+    gameover = false;
+    headx = height / 2;
+    heady = width / 2;
+    fruitx = 1 + (rand() % (height - 2));
+    fruity = 1 + (rand() % (width - 2));
+}
+void draw()
+{
+    system("CLS");
+    for (int i = 0; i < width; i++)
+        cout << "#";
+    cout << endl;
+    if (headx == fruitx && heady == fruity)
+    {
+        fruitx = 1 + (rand() % (height - 2));
+        fruity = 1 + (rand() % (width - 2));
+        bodylen++;
+        score += 10;
+    }
+    for (int i = 0; i < height; i++)
+    {
+        for (int j = 0; j < width; j++)
+        {
+            if (j == 0 || j == width - 1)
+                cout << "#";
+            else if (i == headx && j == heady)
+                cout << snakehead;
+            else if (i == fruitx && j == fruity)
+                cout << "O";
+            else
+            {
+                bool tempbool = false;
+                for (int k = 0; k < bodylen; k++)
+                {
+                    if (tailx[k] == i && taily[k] == j)
+                    {
+                        cout << "=";
+                        tempbool = true;
+                    }
+                }
+                if (!tempbool)
+                    cout << " ";
+            }
+        }
+        cout << endl;
+    }
+    for (int i = 0; i < width; i++)
+        cout << "#";
+    cout << "\n\n";
+    cout << "     SCORE :- " << score;
+}
+void input()
+{
+    if (_kbhit())
+    {
+        direction = getch();
+    }
+}
+void logic()
+{
+    for (int i = 0; i < bodylen; i++)
+    {
+        if (tailx[i] == headx && taily[i] == heady)
+            gameover = true;
+    }
+    if (!gameover)
+    {
+        if (headx == 0 || heady == 0 || headx == height - 1 || heady == width - 1)
+        {
+            gameover = true;
+        }
+        else
+        {
+            int tempx = headx, tempy = heady, temp1;
+            switch (direction)
+            {
+            case 'w':
+                snakehead = '^';
+                headx--;
+                break;
+
+            case 'a':
+                snakehead = '<';
+                heady--;
+                break;
+
+            case 's':
+                snakehead = 'v';
+                headx++;
+                break;
+
+            case 'd':
+                snakehead = '>';
+                heady++;
+                break;
+            }
+            for (int i = bodylen - 1; i > 0; i--)
+            {
+                tailx[i] = tailx[i - 1];
+                taily[i] = taily[i - 1];
+            }
+            tailx[0] = tempx;
+            taily[0] = tempy;
+        }
+    }
+}
+int main()
+{
+    char ch;
+    cout << "\n-------------------------------------------\n";
+    cout << "----------WELCOME TO SNAKE GAME------------\n";
+    cout << "-------------------------------------------\n\n";
+there:
+    cout << "\n\n<<< ENTER X TO START NEW GAME , ELSE TO EXIT >>>\n";
+    cin >> ch;
+    switch (ch)
+    {
+    case 'x':
+    {
+        start();
+        while (!gameover)
+        {
+            draw();
+            input();
+            logic();
+            Sleep(50);
+        }
+        system("CLS");
+        cout << "<<<   WOMP WOMP YOU LOST !!!!  >>>\n";
+        cout << "======= TOTAL SCORE :- " << score << " =======";
+        goto there;
+    }
+    break;
+
+    case 'X':
+    {
+        start();
+        while (!gameover)
+        {
+            draw();
+            input();
+            logic();
+            Sleep(50);
+        }
+        system("CLS");
+        cout << "<<< WOMP WOMP YOU LOST !!!!  >>>\n";
+        cout << "TOTAL SCORE :- " << score;
+    }
+    break;
+    default:
+        cout << "\n\n<<< EXITED >>>";
+    }
+    return 0;
+}
